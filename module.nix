@@ -15,13 +15,7 @@ inputs:
     default = config.nvim-lib.pluginsFromPrefix "plugins-" inputs;
   };
 
-  config.settings.config_directory = ./.;
-
-  # If you want to install multiple neovim derivations via home.packages or environment.systemPackages
-  # in order to prevent path collisions:
-
-  # set this to true:
-  config.settings.dont_link = true;
+  config.settings.dont_link = config.binName != "nvim";
 
   # and make sure these dont share values:
   config.binName = "nvim";

@@ -143,16 +143,9 @@ require("lze").load({
     },
   },
   {
-    "taplo",
+    "tombi",
     cat = "minimal",
-    on_plugin = "lspconfig",
-    lsp = {
-      filetypes = { "toml" },
-      cmd = { "taplo", "lsp", "stdio" },
-      settings = {
-        single_file_support = true,
-      },
-    },
+    lsp = {},
   },
   {
     "crates.nvim",
