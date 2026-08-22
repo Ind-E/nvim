@@ -17,8 +17,7 @@ inputs:
 
   config.settings.dont_link = config.binName != "nvim";
 
-  # and make sure these dont share values:
-  config.binName = "nvim";
+  config.binName = lib.mkDefault "nvim";
   config.settings.aliases = [
     "v"
     "vim"
@@ -45,6 +44,12 @@ inputs:
         lua-language-server
         stylua
       ];
+    };
+
+    kitty = {
+      lazy = false;
+      enable = lib.mkDefault false;
+      data = [ pkgs.vimPlugins.kitty-scrollback-nvim ];
     };
 
     core = {
@@ -171,14 +176,35 @@ inputs:
 
   };
 
-  config.specMods = _: {
-    options.runtimePkgs = options.runtimePkgs // {
-      description = ''
-        A runtimePkgs spec field to put packages on the PATH
-        If the spec is disabled, this value will not be included in the resulting neovim derivation
-      '';
-    };
+  options.settings.kitty = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
   };
+
+  config.specMods =
+    {
+      name,
+      parentName,
+      parentSpec,
+      ...
+    }:
+    {
+      options.runtimePkgs = options.runtimePkgs // {
+        description = ''
+          A runtimePkgs spec field to put packages on the PATH
+          If the spec is disabled, this value will not be included in the resulting neovim derivation
+        '';
+      };
+
+      config = lib.mkIf config.settings.kitty {
+        enable =
+          if parentName == null then
+            (if (name == "kitty" || name == "core") then true else false)
+          else
+            parentSpec.enable;
+      };
+    };
+
   config.runtimePkgs = config.specCollect (acc: v: acc ++ (v.runtimePkgs or [ ])) [ ];
 
   # Inform our lua of which top level specs are enabled

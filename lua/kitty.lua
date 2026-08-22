@@ -1,4 +1,4 @@
-require("lze").load({
+nixInfo.lze.load({
   {
     "kitty-scrollback.nvim",
     cmd = {

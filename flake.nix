@@ -52,6 +52,11 @@
         {
           neovim = self.wrappers.neovim.wrap { inherit pkgs; };
           default = self.packages.${system}.neovim;
+          kitty = self.wrappers.neovim.wrap {
+            inherit pkgs;
+            settings.kitty = true;
+            binName = "nvim-kitty";
+          };
         }
       );
       # `wrappers.neovim.enable = true`

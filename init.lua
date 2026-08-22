@@ -1,4 +1,8 @@
 vim.loader.enable()
+
+require("options")
+require("keymaps")
+
 do
   -- Set up a global in a way that also handles non-nix compat
   local ok
@@ -32,6 +36,31 @@ do
 
     return nixInfo(false, "settings", "cats", name)
   end
+end
+
+nixInfo.lze.load({
+  {
+    "vscode.nvim",
+    after = function ()
+      require("vscode.colors").get_colors()
+      require("vscode").setup({
+        transparent = true,
+        color_overrides = {
+          vscBack = "#000000",
+          vscCursorDarkDark = "#171717",
+          vscLeftDark = "#000000",
+          vscPopupBack = "#000000",
+          vscTabOutside = "#000000",
+        },
+      })
+      vim.cmd.colorscheme("vscode")
+    end,
+  },
+})
+
+if nixInfo.cat("kitty") then
+  require("kitty")
+  return
 end
 
 nixInfo.lze.register_handlers({
@@ -89,28 +118,5 @@ nixInfo.lze.h.lsp.set_ft_fallback(function (name)
   end
 end)
 
-require("options")
-require("keymaps")
-
 require("plugins")
 require("LSPs")
-
-nixInfo.lze.load({
-  {
-    "vscode.nvim",
-    after = function ()
-      require("vscode.colors").get_colors()
-      require("vscode").setup({
-        transparent = true,
-        color_overrides = {
-          vscBack = "#000000",
-          vscCursorDarkDark = "#171717",
-          vscLeftDark = "#000000",
-          vscPopupBack = "#000000",
-          vscTabOutside = "#000000",
-        },
-      })
-      vim.cmd.colorscheme("vscode")
-    end,
-  },
-})
