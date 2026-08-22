@@ -181,6 +181,8 @@ inputs:
     default = false;
   };
 
+  config.env.DOTNET_ROOT = "${pkgs.dotnet-sdk_10}/share/dotnet";
+
   config.specMods =
     {
       name,
