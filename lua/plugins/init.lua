@@ -277,6 +277,6 @@ nixInfo.lze.load({
   },
   {
     "plenary.nvim",
-    dep_of = { "chezmoi-nvim", "easy-dotnet.nvim" },
+    dep_of = { "chezmoi-nvim" },
   },
 })

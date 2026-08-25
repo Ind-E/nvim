@@ -184,7 +184,6 @@ in
           image-nvim
           molten-nvim
 
-          easy-dotnet-nvim
           csvview-nvim
 
         ];
@@ -207,11 +206,10 @@ in
           csharp-ls # csharp ls
           netcoredbg # chsarp dbg
           csharpier # csharp fmt
+          roslyn-ls
         ];
       };
     };
-
-    env.DOTNET_ROOT = "${pkgs.dotnet-sdk_10}/share/dotnet";
 
     specMods = { name, parentName, ... }: {
       options.runtimePkgs = options.runtimePkgs;

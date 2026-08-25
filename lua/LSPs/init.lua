@@ -217,18 +217,14 @@ require("lze").load({
     cat = "full",
   },
   {
-    "easy-dotnet.nvim",
+    "roslyn_ls",
     cat = "full",
-    ft = { "cs", "xml" },
-    after = function ()
-      require("easy-dotnet").setup({
-        lsp = {
-          enabled = true,
-        },
-        picker = "snacks",
-      })
-      require("LSPs.on_attach")()
-    end,
+    ft = "cs",
+    lsp = {
+      filetypes = { "cs" },
+      cmd = { "Microsoft.CodeAnalysis.LanguageServer", "--stdio" },
+      on_attach = require("LSPs.on_attach"),
+    },
   },
 })
 
