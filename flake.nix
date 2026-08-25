@@ -50,22 +50,23 @@
           };
         in
         {
-          neovim = self.wrappers.neovim.wrap { inherit pkgs; };
-          default = self.packages.${system}.neovim;
           kitty = self.wrappers.neovim.wrap {
             inherit pkgs;
-            settings.kitty = true;
+            settings.profile = "kitty";
             binName = "nvim-kitty";
           };
+          minimal = self.wrappers.neovim.wrap {
+            inherit pkgs;
+            settings.profile = "minimal";
+            binName = "nvim-minimal";
+          };
+          full = self.wrappers.neovim.wrap {
+            inherit pkgs;
+            settings.profile = "full";
+            binName = "nvim";
+          };
+          default = self.packages.${system}.full;
         }
       );
-      # `wrappers.neovim.enable = true`
-      nixosModules = {
-        default = self.nixosModules.neovim;
-        neovim = wrappers.lib.getInstallModule {
-          name = "neovim";
-          value = module;
-        };
-      };
     };
 }
