@@ -24,7 +24,7 @@
       ...
     }@inputs:
     let
-      forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.platforms.all;
+      forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
       module = nixpkgs.lib.modules.importApply ./module.nix inputs;
       wrapper = wrappers.lib.evalModule module;
     in
