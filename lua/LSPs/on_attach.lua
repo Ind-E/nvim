@@ -37,4 +37,18 @@ return function (_, bufnr)
       severity = vim.diagnostic.severity.ERROR,
     })
   end, "Jump to the previous error")
+
+  vim.api.nvim_create_user_command("LspAttachAll", function ()
+    local buffers = vim.api.nvim_list_bufs()
+
+    for _, bufnumber in ipairs(buffers) do
+      if vim.api.nvim_buf_is_valid(bufnumber) and vim.api.nvim_buf_is_loaded(bufnumber) then
+        local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnumber })
+
+        if ft and ft ~= "" then
+          vim.api.nvim_exec_autocmds("FileType", { buffer = bufnumber })
+        end
+      end
+    end
+  end, { desc = "Load LSP for all open buffers" })
 end
