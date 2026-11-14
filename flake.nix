@@ -15,6 +15,10 @@
       url = "github:xvzc/chezmoi.nvim/main";
       flake = false;
     };
+    lemminx-src = {
+      url = "github:eclipse-lemminx/lemminx/main";
+      flake = false;
+    };
   };
   outputs =
     {

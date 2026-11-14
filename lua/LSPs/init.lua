@@ -113,7 +113,39 @@ require("lze").load({
   {
     "lemminx",
     cat = "full",
-    lsp = {},
+    lsp = {
+      settings = {
+        xml = {
+          format = {
+            enabled = true,
+            maxLineWidth = 115,
+            splitAttributes = "aligned-multiple",
+            splitAttributesIndentSize = 2,
+            preserveAttributeLineBreaks = true,
+            spaceBeforeEmptyCloseTag = true,
+            preservedNewlines = 2,
+            emptyElements = "ignore",
+            enforceQuoteStyle = "ignore",
+            grammarAwareFormatting = true,
+            formatComments = true,
+            xsiSchemaLocationSplit = "onPair",
+            preserveSpace = {
+              "xsl:text",
+              "xsl:comment",
+              "xsl:processing-instruction",
+              "literallayout",
+              "programlisting",
+              "screen",
+              "synopsis",
+              "pre",
+              "xd:pre",
+              "style",
+              "script",
+            },
+          },
+        },
+      },
+    },
   },
   {
     "yamlls",
