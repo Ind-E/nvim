@@ -199,14 +199,33 @@ in
           tinymist # typst ls
           websocat # for typst preview
           typstyle # typst fmt
-          lemminx # xml ls
           glsl_analyzer # glsl ls
           sqls # sql ls
           gopls # go ls
-          csharp-ls # csharp ls
+          roslyn-ls # chsarp ls
           netcoredbg # chsarp dbg
           csharpier # csharp fmt
-          roslyn-ls
+
+          (lemminx.overrideMavenAttrs (
+            old:
+            let
+              version = "0.31.2-unstable-${inputs.lemminx-src.shortRev}";
+            in
+            {
+              inherit version;
+              src = inputs.lemminx-src;
+              mvnHash = "sha256-68Ue0RNVzrTW7z/TOoZHPvSuzP7aLK5DaS5S/ScC49s=";
+              mvnParameters = "${old.mvnParameters or ""} -DskipTests";
+              preBuild = lib.optionalString ((old.preBuild or null) != null) old.preBuild + ''
+                cat > org.eclipse.lemminx/src/main/resources/git.properties <<EOF
+                git.build.version=${version}
+                git.branch=main
+                git.commit.id.abbrev=${inputs.lemminx-src.shortRev}
+                git.commit.message.short=snapshot
+                EOF
+              '';
+            }
+          ))
         ];
       };
     };
