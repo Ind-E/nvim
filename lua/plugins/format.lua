@@ -16,7 +16,6 @@ return {
           -- otter = { "ruff", lsp_format = "prefer" },
           ts = { "prettier" },
           tsx = { "prettier" },
-          cs = { "csharpier" },
         },
 
         formatters = {

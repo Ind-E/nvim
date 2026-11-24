@@ -204,7 +204,6 @@ in
           gopls # go ls
           roslyn-ls # chsarp ls
           netcoredbg # chsarp dbg
-          csharpier # csharp fmt
 
           (lemminx.overrideMavenAttrs (
             old:
